@@ -1,0 +1,105 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html >
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>日历操作</title>
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+        window.onload = function(){
+                var url = "/paiban/data.json";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: "doctor_id",
+                    dataType: "json",
+                    success: function(data){
+                        var data = data.data;
+                        var addTime = 0;
+                        var addDateNew = 0;
+                        $.each(data,function(i,item){
+                           // console.log(item.to_date);
+                            var addDate = item.to_date;
+                            var addDates = (new Date(addDate)).getTime();//转化毫秒数
+                           // console.log(addDates);
+                            if(addDates > addTime){
+                                addTime = addDates;
+                                addDateNew = addDate;
+                            }
+                        });
+                        //求第一天日期
+                        var now = new Date(); //当前日期
+                        var nowDayOfWeek = now.getDay()-1; //今天本周的第几天
+                        var nowDay = now.getDate(); //当前日
+                        var nowMonth = now.getMonth(); //当前月
+                        var nowYear = now.getYear(); //当前年
+                        var weekStartDate =  formatDateN(new Date(nowYear, nowMonth, nowDay - nowDayOfWeek));
+                        var clen = ((new Date(addDateNew)).getTime()-(new Date(weekStartDate)).getTime())/60/60/24/1000;
+                        var weeks = Math.ceil(clen/7);//向上取整-取周数
+                        $("#monitor").append("")
+                       // console.log(clen);
+
+
+                        function formatDateN(date) {
+                            var myyear = date.getFullYear() + 1900;
+                            var mymonth = date.getMonth()+1;
+                            var myweekday = date.getDate();
+
+                            if(mymonth < 10){
+                                mymonth = "0" + mymonth;
+                            }
+                            if(myweekday < 10){
+                                myweekday = "0" + myweekday;
+                            }
+                            return (myyear+"-"+mymonth + "-" + myweekday);
+                        }
+
+                     //       console.log(weekStartDate);
+
+                        var cells = document.getElementById('monitor');
+                        //var clen = cells.length;
+                        var currentFirstDate;
+                        var formatDate = function(date){
+                            var year = date.getFullYear()+'年';
+                            var month = (date.getMonth()+1)+'月';
+                            var day = date.getDate()+'日';
+                            var week = '('+['星期天','星期一','星期二','星期三','星期四','星期五','星期六'][date.getDay()]+')';
+
+                            //return year+month+day+' '+week;
+                            return month+day+' '+week;
+                        };
+                        var addDate= function(date,n){
+                            date.setDate(date.getDate()+n);
+                            return date;
+                        };
+                        var setDate = function(date){
+                            var week = date.getDay()-1;
+                            date = addDate(date,week*-1);
+                            currentFirstDate = new Date(date);
+                            var number =  Math.ceil(clen/7);
+                            for(var i = 0;i<number;i++){
+                               // console.log(i);
+                                cells.innerHTML += "<div id='cell-"+i+"' class='slider'><div class='tit'><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div>";
+                            }
+                            console.log($("#monitor").find("span").length);
+                            for(var i = 0;i<clen+1;i++){
+                                $("#monitor .tit span").eq(i).append("<td>"+formatDate(i==0 ? date : addDate(date,1))+"</td>");
+                            }
+                        };
+                        /*  document.getElementById('last-week').onclick = function(){
+                         setDate(addDate(currentFirstDate,-7));
+                         };
+                         document.getElementById('next-week').onclick = function(){
+                         setDate(addDate(currentFirstDate,7));
+                         };   */
+                        setDate(new Date());
+
+                    }
+                });
+        }
+    </script>
+</head>
+<body>
+    <div id="monitor">
+    </div>
+</body>
+</html>
