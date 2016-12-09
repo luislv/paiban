@@ -6,7 +6,7 @@
 	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script>
         window.onload = function(){
-                var url = "/paiban/data.json";
+                var url = "data.json";
                 $.ajax({
                     type: "POST",
                     url: url,
@@ -53,19 +53,18 @@
                             return (myyear+"-"+mymonth + "-" + myweekday);
                         }
 
-                     //       console.log(weekStartDate);
 
                         var cells = document.getElementById('monitor');
                         //var clen = cells.length;
                         var currentFirstDate;
                         var formatDate = function(date){
                             var year = date.getFullYear()+'年';
-                            var month = (date.getMonth()+1)+'月';
-                            var day = date.getDate()+'日';
-                            var week = '('+['星期天','星期一','星期二','星期三','星期四','星期五','星期六'][date.getDay()]+')';
+                            var month = (date.getMonth()+1);
+                            var day = date.getDate();
+                            var week = ['周日','周一','周二','周三','周四','周五','周六'][date.getDay()];
 
-                            //return year+month+day+' '+week;
-                            return month+day+' '+week;
+                            //return year+month+day+' '+week;周一<br><em>11-28</em>
+                            return week+"<br /><em>"+month+"-"+day+"</em>";
                         };
                         var addDate= function(date,n){
                             date.setDate(date.getDate()+n);
@@ -78,11 +77,12 @@
                             var number =  Math.ceil(clen/7);
                             for(var i = 0;i<number;i++){
                                // console.log(i);
-                                cells.innerHTML += "<div id='cell-"+i+"' class='slider'><div class='tit'><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div>";
+//                                cells.innerHTML += "<div id='cell-"+i+"' class='slider'><div class='tit'><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div>";
+                                cells.innerHTML += '<div class="swiper-wrapper"> <div class="swiper-slide"> <div class="pt10 pb10 pl10 pr10"> <div class="bor1bd rsquare"> <ul class="weektit no-lst layout"> <span>&nbsp;</span><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul> <ul class="schData no-lst layout"> <li class="am"> <a>上午</a> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> </li> <li class="pm"> <span>下午</span> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> </li> </ul> <p class="noti typo_small textc typo_lgray lh24 pt5 pb5">左右滑动日历查看其他日期排班</p> </div> </div> </div> </div>';
                             }
                             console.log($("#monitor").find("span").length);
                             for(var i = 0;i<clen+1;i++){
-                                $("#monitor .tit span").eq(i).append("<td>"+formatDate(i==0 ? date : addDate(date,1))+"</td>");
+                                $("#monitor .weektit li").eq(i).append(formatDate(i==0 ? date : addDate(date,1)));
                             }
                         };
                         /*  document.getElementById('last-week').onclick = function(){
@@ -92,14 +92,56 @@
                          setDate(addDate(currentFirstDate,7));
                          };   */
                         setDate(new Date());
-
                     }
                 });
         }
     </script>
 </head>
 <body>
-    <div id="monitor">
+    <!--<div id="monitor"></div>-->
+    <div class="swiper-container schswiper" id="monitor">
+        <!--<div class="swiper-wrapper">-->
+            <!--<div class="swiper-slide">-->
+                <!--<div class="pt10 pb10 pl10 pr10">-->
+                    <!--<div class="bor1bd rsquare">-->
+                        <!--<ul class="weektit no-lst layout">-->
+                            <!--<span>&nbsp;</span>-->
+                            <!--<li>周一<br><em>11-28</em></li>-->
+                            <!--<li>周二<br><em>11-29</em></li>-->
+                            <!--<li>周三<br><em>11-30</em></li>-->
+                            <!--<li>周四<br><em>12-01</em></li>-->
+                            <!--<li>周五<br><em>12-02</em></li>-->
+                            <!--<li>周六<br><em>12-03</em></li>-->
+                            <!--<li>周日<br><em>12-04</em></li>-->
+                        <!--</ul>-->
+                        <!--<ul class="schData no-lst layout">-->
+                            <!--<li class="am">-->
+                                <!--<a>上午</a>-->
+                                <!--<a href="javascript:;" class="noNum"></a>-->
+                                <!--<a href="javascript:;" class="noNum"></a>-->
+                                <!--<a href="javascript:;" class="noNum"></a>-->
+                                <!--<a href="javascript:;" class="noNum"></a>-->
+                                <!--<a href="javascript:;" class="noNum"></a>-->
+                                <!--<a href="javascript:;" class="noNum"></a>-->
+                                <!--<a href="javascript:;" class="noNum"></a>-->
+                            <!--</li>-->
+                            <!--<li class="pm">-->
+                                <!--<span>下午</span>-->
+                                <!--<a href="javascript:;" class="noNum"></a>-->
+                                <!--<a href="javascript:;" class="noNum"></a>-->
+                                <!--<a href="javascript:;" class="noNum"></a>-->
+                                <!--<a href="javascript:;" class="noNum"></a>-->
+                                <!--<a href="javascript:;" class="noNum"></a>-->
+                                <!--<a href="javascript:;" class="noNum"></a>-->
+                                <!--<a href="javascript:;" class="noNum"></a>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                        <!--<p class="noti typo_small textc typo_lgray lh24 pt5 pb5">左右滑动日历查看其他日期排班</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="swiper-pagination schswiper-pagination"></div>
     </div>
 </body>
 </html>
