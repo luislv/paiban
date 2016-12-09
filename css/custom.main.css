@@ -3180,18 +3180,19 @@ ul.memlist,ul.memlist li{list-style-type: none; list-style: none;}
 /*医生主页排班*/
 .bor1bd{border:solid 1px #1bd7c8;}
 .weektit{border-top-left-radius: 8px;border-top-right-radius: 8px;border-bottom:solid 1px #e8e8e8;color: #333; background: #f9f9f9;}
-.weektit li{position:relative;float:left;width:12.5%;padding:5px 0; line-height: 14px; text-align: center; font-size: 12px; }
+.weektit li,.weektit span{position:relative;float:left;width:12.5%;padding:5px 0; line-height: 14px; text-align: center; font-size: 12px; }
 .weektit li em{font-size: 10px;}
 .weektit li::before{content: ''; position: absolute;left: 0;top:0; height:100%; width: 1px; background: #e8e8e8}
 .weektit li:first-child::before{background: none;}
 
 .schData{}
 .schData li{float:left;width:100%;border-bottom:solid 1px #e9e9e9;}
-.schData li a{position:relative;display:inline-block;float:left;width:12.5%;height:28px;padding:5px 0; line-height: 14px; text-align: center; font-size: 12px; }
+.schData li a,.schData li em{position:relative;display:inline-block;float:left;width:12.5%;height:28px;padding:5px 0; line-height: 14px; text-align: center; font-size: 12px; }
+.schData li em {line-height:28px;color:#999;}
 .schData li a span{display:block;width:28px;margin:0 auto;}
 .schData li a::before{content: ''; position: absolute;left: 0;top:0; height:100%; width: 1px; background: #e9e9e9}
 .schData li a:first-child::before{background: none;}
-.schData li a.yuyue{ display: block; color:#fff; background: #00d3c2;}
+.schData li a.yuyue,.schData li a.more{ display: block; color:#fff; background: #00d3c2;}
 .schData li a.full{line-height:28px;color:#333;background: #f6f6f6;}
 .schData li a:first-child{line-height: 28px;color: #b8b8b8;}
 

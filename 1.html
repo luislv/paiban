@@ -35,7 +35,7 @@
                         var weekStartDate =  formatDateN(new Date(nowYear, nowMonth, nowDay - nowDayOfWeek));
                         var clen = ((new Date(addDateNew)).getTime()-(new Date(weekStartDate)).getTime())/60/60/24/1000;
                         var weeks = Math.ceil(clen/7);//向上取整-取周数
-                        $("#monitor").append("")
+                        $("#paiban").append("")
                        // console.log(clen);
 
 
@@ -54,7 +54,7 @@
                         }
 
 
-                        var cells = document.getElementById('monitor');
+                        var cells = document.getElementById('paiban');
                         //var clen = cells.length;
                         var currentFirstDate;
                         var formatDate = function(date){
@@ -80,9 +80,9 @@
 //                                cells.innerHTML += "<div id='cell-"+i+"' class='slider'><div class='tit'><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div>";
                                 cells.innerHTML += '<div class="swiper-wrapper"> <div class="swiper-slide"> <div class="pt10 pb10 pl10 pr10"> <div class="bor1bd rsquare"> <ul class="weektit no-lst layout"> <span>&nbsp;</span><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul> <ul class="schData no-lst layout"> <li class="am"> <a>上午</a> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> </li> <li class="pm"> <span>下午</span> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> <a href="javascript:;" class="noNum"></a> </li> </ul> <p class="noti typo_small textc typo_lgray lh24 pt5 pb5">左右滑动日历查看其他日期排班</p> </div> </div> </div> </div>';
                             }
-                            console.log($("#monitor").find("span").length);
+                            console.log($("#paiban").find("span").length);
                             for(var i = 0;i<clen+1;i++){
-                                $("#monitor .weektit li").eq(i).append(formatDate(i==0 ? date : addDate(date,1)));
+                                $("#paiban .weektit li").eq(i).append(formatDate(i==0 ? date : addDate(date,1)));
                             }
                         };
                         /*  document.getElementById('last-week').onclick = function(){
@@ -98,8 +98,8 @@
     </script>
 </head>
 <body>
-    <!--<div id="monitor"></div>-->
-    <div class="swiper-container schswiper" id="monitor">
+    <!--<div id="paiban"></div>-->
+    <div class="swiper-container schswiper" id="paiban">
         <!--<div class="swiper-wrapper">-->
             <!--<div class="swiper-slide">-->
                 <!--<div class="pt10 pb10 pl10 pr10">-->
